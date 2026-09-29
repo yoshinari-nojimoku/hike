@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>挽け！</title>
+<meta name="apple-mobile-web-app-title" content="挽け！">
+<meta name="application-name" content="挽け！">
+<meta name="theme-color" content="#5B3A24">
+<meta name="robots" content="noindex, nofollow">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+Rounded+1c:wght@500;800&display=swap">
+<script>
+  // ホーム画面のアイコンから開いたとき（?go=1）は、すぐ本体へ
+  var APP = 'https://script.google.com/macros/s/AKfycbyevCnwwVRRvtLYANiIanNra-924bsxL4xLDC2N-dI_nX8BEcmzTA4EDfDL6-svHnXi/exec';
+  if (/[?&]go=1/.test(location.search)) location.replace(APP);
+</script>
+<style>
+:root{--table:#5B3A24;--wood:#EAD4A8;--burn:#4A2E1A;--cream:#F3E6C8;--ink:#1E1A16}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--table);color:var(--burn);font-family:'M PLUS Rounded 1c',sans-serif;
+  background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.14) 0 1px,transparent 1px 38px)}
+main{max-width:440px;margin:0 auto;padding:28px 16px calc(28px + env(safe-area-inset-bottom))}
+.head{display:flex;align-items:center;gap:14px;color:var(--cream)}
+.head img{width:72px;height:72px;border-radius:18px;border:2px solid var(--cream)}
+.head h1{margin:0;font-family:'Dela Gothic One',sans-serif;font-weight:400;font-size:34px;letter-spacing:.04em}
+.head p{margin:2px 0 0;font-size:13px;font-weight:800}
+.card{background:var(--wood);border:2px solid var(--burn);border-radius:14px;padding:16px;margin-top:18px}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;height:60px;border-radius:12px;border:2px solid var(--ink);
+  background:var(--ink);color:var(--cream);font-family:'Dela Gothic One',sans-serif;font-size:22px;text-decoration:none;box-shadow:0 4px 0 rgba(0,0,0,.4)}
+.btn.sub{background:#FFFBF1;color:var(--ink);font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;font-size:16px;height:52px;margin-top:12px}
+h2{margin:0 0 8px;font-size:17px}
+ol{margin:8px 0 0;padding-left:1.4em;line-height:1.9;font-weight:500}
+b.k{background:var(--burn);color:var(--cream);border-radius:6px;padding:0 6px;font-weight:800}
+.note{font-size:12px;font-weight:500;margin-top:8px}
+.hide{display:none}
+.ok{margin-top:10px;padding:8px 10px;border-radius:10px;background:#FFFBF1;border:2px dashed var(--burn);font-weight:800;font-size:14px}
+</style>
+</head>
+<body>
+<main>
+  <div class="head"><img src="icon-192.png" alt="" width="72" height="72"><div><h1>挽け！</h1><p>セーザイゲーム式 木取り（nojimoku）</p></div></div>
+
+  <div id="going" class="card hide"><h2>挽け！を開いています…</h2>
+    <a class="btn" id="goLink" href="#">開かないときはここ</a></div>
+
+  <div id="setup">
+    <div class="card">
+      <a class="btn" id="openLink" href="#">挽け！を開く</a>
+    </div>
+
+    <div class="card">
+      <h2>スマホのホーム画面にアイコンを置く</h2>
+      <div>一度だけ設定すると、次からは丸太のアイコンを押すだけで開きます。</div>
+      <button class="btn sub" id="prep" type="button">① ここを押して準備する</button>
+      <div id="ready" class="ok hide">準備できました。続けて下の手順で登録してください</div>
+      <div id="ios">
+        <div class="note" style="font-weight:800;font-size:14px;margin-top:12px">iPhone</div>
+        <ol style="margin-top:2px">
+          <li>画面下の <b class="k">共有</b>（□に↑）を押す</li>
+          <li>下へ送って <b class="k">ホーム画面に追加</b> を押す</li>
+          <li>名前が「挽け！」になっているのを見て <b class="k">追加</b></li>
+        </ol>
+        <div class="note">iPhoneはSafariで開いてください（ほかのアプリの中の画面では登録できません）</div>
+      </div>
+      <div id="android">
+        <div class="note" style="font-weight:800;font-size:14px;margin-top:12px">Android</div>
+        <ol style="margin-top:2px">
+          <li>右上の <b class="k">⋮</b> を押す</li>
+          <li><b class="k">ホーム画面に追加</b> を押す（「アプリをインストール」と出たらそれでも同じ）</li>
+          <li><b class="k">追加</b> を押す</li>
+        </ol>
+        <div class="note">AndroidはChromeで開いてください</div>
+      </div>
+    </div>
+
+    <div class="note" style="color:var(--cream)">アプリ本体を開けるのは、許可されたGoogleアカウントだけです。</div>
+  </div>
+</main>
+<script>
+  document.getElementById('openLink').href = APP;
+  document.getElementById('goLink').href = APP;
+  if (/[?&]go=1/.test(location.search)) {
+    document.getElementById('setup').classList.add('hide');
+    document.getElementById('going').classList.remove('hide');
+  }
+  var ua = navigator.userAgent, isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/.test(ua);
+  if (isIOS) document.getElementById('android').classList.add('hide');
+  if (isAndroid) document.getElementById('ios').classList.add('hide');
+  // 登録するURLを「開いたらすぐ本体へ行く」形（?go=1）に変えておく。ページは移動しない
+  document.getElementById('prep').addEventListener('click', function () {
+    history.replaceState(null, '', location.pathname + '?go=1');
+    document.getElementById('ready').classList.remove('hide');
+    this.disabled = true; this.textContent = '① 準備できました';
+  });
+</script>
+</body>
+</html>
