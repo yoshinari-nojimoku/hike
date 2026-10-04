@@ -51,7 +51,18 @@ b.k{background:var(--burn);color:var(--cream);border-radius:6px;padding:0 6px;fo
       <a class="btn" id="openLink" href="#">挽け！を開く</a>
     </div>
 
-    <div class="card">
+    <div id="inapp" class="card hide" style="border-color:#953525;background:#F3E3E0">
+      <h2 style="color:#953525">このままではアイコンを置けません</h2>
+      <div>LINE WORKS などアプリの中の画面で開いています。ホーム画面に置けるのは、<b>iPhoneはSafari</b>、<b>AndroidはChrome</b>で開いたときだけです。</div>
+      <ol>
+        <li>画面の上か下にあるメニュー（<b class="k">⌄</b> や <b class="k">…</b>）を押す</li>
+        <li><b class="k">ブラウザで開く</b>（Safariで開く／Chromeで開く）を押す</li>
+      </ol>
+      <div class="note">メニューが見つからないときは、下のボタンでリンクをコピーし、Safari（Chrome）のアドレス欄に貼って開いてください。</div>
+      <button class="btn sub" id="copyLink" type="button">リンクをコピーする</button>
+    </div>
+
+    <div class="card" id="homeCard">
       <h2>スマホのホーム画面にアイコンを置く</h2>
       <div>一度だけ設定すると、次からは丸太のアイコンを押すだけで開きます。</div>
       <button class="btn sub" id="prep" type="button">① ここを押して準備する</button>
@@ -90,6 +101,20 @@ b.k{background:var(--burn);color:var(--cream);border-radius:6px;padding:0 6px;fo
   var isAndroid = /Android/.test(ua);
   if (isIOS) document.getElementById('android').classList.add('hide');
   if (isAndroid) document.getElementById('ios').classList.add('hide');
+  // アプリの中のブラウザ（LINE WORKS など）ではホーム画面に置けない → ①を出さず「ブラウザで開く」を案内
+  //  （ここで①を押すと URL が ?go=1 になり、そのあと「ブラウザで開く」とすぐ本体へ飛んでしまうため）
+  var inApp = /worksmobile|lineworks|Line\/|FBAN|FBAV|Instagram|MicroMessenger/i.test(ua) ||
+              (isIOS && !/Safari\//.test(ua)) || (isAndroid && /; wv\)/.test(ua));
+  if (inApp) {
+    document.getElementById('inapp').classList.remove('hide');
+    document.getElementById('homeCard').classList.add('hide');
+  }
+  document.getElementById('copyLink').addEventListener('click', function () {
+    var url = location.origin + location.pathname, b = this;
+    var done = function () { b.textContent = 'コピーしました。Safari（Chrome）に貼ってください'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, function () { prompt('このリンクをコピーしてください', url); });
+    else prompt('このリンクをコピーしてください', url);
+  });
   // 登録するURLを「開いたらすぐ本体へ行く」形（?go=1）に変えておく。ページは移動しない
   document.getElementById('prep').addEventListener('click', function () {
     history.replaceState(null, '', location.pathname + '?go=1');
