@@ -1,6 +1,6 @@
 {
-  "name": "挽け！ 木取り",
-  "short_name": "挽け！",
+  "name": "rSG 木取り",
+  "short_name": "rSG",
   "start_url": "./?go=1",
   "scope": "./",
   "display": "browser",
